@@ -1,0 +1,182 @@
+!</switchvlan>
+!<ipv4-acl>
+ipv4-access-list gg-ACL
+$
+ipv4-access-list sl-ACL
+ $
+ipv4-access-list bb-ACL
+$
+ipv4-access-list nn-ACL
+$
+ipv4-access-list gg-vpn-ACL
+$
+ipv4-access-list sl-vpn-ACL
+$
+ipv4-access-list bb-vpn-ACL
+$
+ipv4-access-list mm-vpn-ACL
+$
+ipv4-access-list nn-vpn-ACL
+$
+ipv4-access-list vty
+  rule 10 permit ip 12.10.8.0 0.0.0.255 any
+  rule 15 permit ip 10.56.4.0 0.0.0.255 any
+  rule 20 permit ip 10.56.20.0 0.0.0.255 any
+  rule 25 permit ip 12.200.39.194 0.0.0.0 any
+  rule 30 permit ip 10.180.4.0 0.0.0.255 any
+  rule 35 permit ip 12.10.18.0 0.0.0.255 any
+  rule 40 permit ip 10.100.20.0 0.0.3.255 any
+   rule 45 permit ip 12.200.39.196 0.0.0.0 any
+  rule 50 permit 10.100.2.48 0.0.0.15
+  rule 200 deny ip any any
+$
+ipv4-access-list snmp
+  rule 10 permit 12.10.8.200 0.0.0.0
+  rule 20 permit 12.10.8.2 0.0.0.0
+  rule 30 permit 12.200.39.194 0.0.0.0
+  rule 200 deny any
+$
+ipv4-access-list 110
+  rule 10 deny tcp any eq 135 any
+  rule 20 deny tcp any eq 139 any
+  rule 30 deny tcp any eq 445 any
+  rule 40 deny tcp any eq 539 any
+  rule 50 deny tcp any eq 593 any
+  rule 60 deny tcp any eq 1521 any
+  rule 70 deny tcp any eq 2000 any
+  rule 80 deny tcp any eq 2001 any
+  rule 90 deny tcp any eq 5800 any
+  rule 100 deny tcp any eq 5900 any
+  rule 110 deny tcp any eq 6267 any
+  rule 120 deny tcp any eq 7306 any
+   rule 130 deny tcp any eq 7626 any
+  rule 140 deny tcp any eq 8011 any
+  rule 150 deny tcp any eq 8102 any
+  rule 160 deny udp any eq 135 any
+  rule 170 deny udp any eq 137 any
+  rule 180 deny udp any eq 138 any
+  rule 190 deny udp any eq 445 any
+  rule 200 deny udp any eq 1433 any
+  rule 210 deny udp any eq 1434 any
+  rule 220 deny udp any eq 6667 any
+  rule 230 permit any
+$
+ipv4-access-list BJGK
+  rule 10 permit 10.173.33.16 0.0.0.15
+  rule 20 permit 10.123.64.1 0.0.0.0
+  rule 30 permit 10.123.65.0 0.0.0.15
+  rule 40 permit 10.100.2.80 0.0.0.15
+  rule 50 permit 10.100.2.112 0.0.0.15
+  rule 60 permit 10.123.96.1 0.0.0.0
+$
+!</ipflow>
+!<ntp>
+ntp enable
+ntp server 10.144.0.1 priority 1
+ntp source interface loopback1
+!</ntp>
+!<port-acl>
+interface gei-0/1/0/1
+  ipv4-access-group egress 110
+  ipv4-access-group ingress 110
+$
+interface gei-0/1/0/2
+  ipv4-access-group egress 110
+  ipv4-access-group ingress 110
+$
+interface gei-0/1/0/4
+  ipv4-access-group egress 110
+  ipv4-access-group ingress 110
+$
+interface gei-0/1/0/6
+  ipv4-access-group egress 110
+   ipv4-access-group ingress 110
+$
+interface gei-0/1/0/7
+  ipv4-access-group egress 110
+  ipv4-access-group ingress 110
+$
+interface gei-0/2/0/1
+  ipv4-access-group egress 110
+  ipv4-access-group ingress 110
+$
+interface gei-0/2/1/1
+  ipv4-access-group egress 110
+  ipv4-access-group ingress 110
+$
+!</aaa>
+!<lldp>
+lldp
+  lldp-rx disable
+  lldp-tx disable
+$
+!</lldp>
+!<ip>
+ip source-route disable
+!</ip>
+!<ssh>
+ssh server access-class ipv4 vty
+ssh server enable
+!</ssh>
+!<ldp>
+mpls ldp instance 1
+  access-fec ip-prefix host-route-only
+  holdtime 30
+  interface gei-0/2/0/1
+  $
+  neighbor 10.100.0.1 password sealed abcdeabcdefabcdeabcdefabcdeabcdefabcdeabcdefabcdeabcdefabcdeabcdefabcdeabcdefabcdeabcdefabcdeabcdefabcdeabcdef
+  router-id loopback1
+$
+!<telnet>
+line telnet idle-timeout 5
+line telnet access-class ipv4 vty
+line telnet max-link 5
+!</telnet>
+!<monitor>
+monitor session 1
+  default destination interface gei-0/1/0/8
+$
+monitor apply session 1 source interface gei-0/2/0/1 direction rx
+monitor apply session 1 source interface gei-0/2/0/1 direction tx
+!</monitor>
+!<hqos>
+class-map cm-ipp6_7 match-any
+  match ipv4 precedence 6-7
+$
+class-map cm-gg match-any
+  match qos-group 4
+  match ipv4-access-list gg-ACL
+$
+class-map cm-ss match-any
+   match qos-group 3
+  match ipv4-access-list ss-ACL
+$
+class-map cm-bb match-any
+  match qos-group 2
+  match ipv4-access-list bb-ACL
+$
+class-map cm-nn match-any
+  match qos-group 1
+  match ipv4-access-list nn-ACL
+$
+class-map cm-gg-output match-any
+  match dscp range 32
+$
+class-map cm-ss-output match-any
+  match dscp range 16
+$
+class-map cm-bb-output match-any
+  match dscp range 8
+$
+class-map cm-nn-output match-any
+  match dscp range 0
+$
+ class-map cm-gg-vpn match-any
+  match ipv4-access-list gg-vpn-ACL
+$
+class-map cm-ss-vpn match-any
+  match ipv4-access-list sl-vpn-ACL
+$
+class-map cm-bb-vpn match-any
+  match ipv4-access-list bb-vpn-ACL
+$
