@@ -16,8 +16,8 @@ import java.util.regex.Pattern;
 public class MatchPro {
     public static void main(String[] args) {
         MatchPro matchPro = new MatchPro();
-        System.out.println(matchPro.turnAclToIptables("rule 10 permit ip 12.10.8.0 0.0.0.255 any"));
-        //System.out.println(matchPro.turnAclToIptables("rule 140 deny tcp any eq 8011 any"));
+        //System.out.println(matchPro.turnAclToIptables("rule 10 permit ip 12.10.8.0 0.0.0.255 any"));
+        System.out.println(matchPro.turnAclToIptables("rule 140 deny tcp any eq 8011 any"));
         //System.out.println(matchPro.turnAclToIptables("rule 100 deny tcp any eq 5900 any"));
 
     }
