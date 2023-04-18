@@ -14,6 +14,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Iptables {
+//==============================基本属性==========================================//
     //id，自增
     Integer id;
     //存储的表结构，默认使用 filter 表示过滤表
@@ -22,24 +23,61 @@ public class Iptables {
     String rule;
     //存储的链结构，常见的使用 INPUT 表示进入的流量
     String chain;
-    //标识源地址或目的地址，-s 表示源地址，-d 表示目的地址
-    String flagIp;
-    //IP地址【举例：单个ip为 10.250.143.31，网段为 10.250.143.31/28】
-    String ip;
-    //子网掩码
-    String netmask;
-    //标识进入网卡或流出网卡，-i 表示进入，-o 表示流出
-    String flagEth;
-    //网卡名称
-    String eth;
-    //标识协议，-p表示协议
-    String flagPro;
-    //匹配的协议类型，常见的为 tcp、udp、icmp
-    String protocol;
-    //标识是否拥有扩展协议，1 标识拥有扩展协议，0 标识没有扩展协议
-    Integer flagExtendIptables;
-    //扩展协议id
-    Integer extendIptables_id;
+    /**
+     * 行为属性
+     */
     //行为，常见的为 ACCEPT 表示接受、REJECT 表示拒绝、DROP 表示丢弃
     String judge;
+    //匹配的协议类型，常见的为 ip、tcp、udp、icmp
+    String protocol;
+    /**
+     * 源属性：其中range和eq只能出现其中一个
+     *
+     */
+    //源IP地址【举例：单个ip为 10.250.143.31，网段为 10.250.143.31/28】
+    String sIp;
+    //源子网掩码
+    String sNetmask;
+    //源端口range关键字
+    String sRange;
+    //源端口起始端口
+    String sStartPort;
+    //源端口截止端口
+    String sDestPort;
+    //目的端口关键字
+    String sEq;
+
+    @Override
+    public String toString() {
+        return "Iptables{" +
+                "id=" + id + ", table='" + table + '\'' + ", rule='" + rule + '\'' +'\n'+
+                ", chain='" + chain + '\'' + ", judge='" + judge + '\'' + ", protocol='" + protocol + '\'' +'\n'+
+                ", sIp='" + sIp + '\'' + ", sNetmask='" + sNetmask + '\'' + ", sRange='" + sRange + '\'' +'\n'+
+                ", sStartPort='" + sStartPort + '\'' + ", sDestPort='" + sDestPort + '\'' + ", sEq='" + sEq + '\'' +'\n'+
+                ", sPort='" + sPort + '\'' + ", dIp='" + dIp + '\'' + ", dNetmask='" + dNetmask + '\'' +'\n'+
+                ", dRange='" + dRange + '\'' + ", dStartPort='" + dStartPort + '\'' + ", dDestPort='" + dDestPort + '\'' +'\n'+
+                ", dEq='" + dEq + '\'' + ", dPort='" + dPort + '\'' +
+                '}';
+    }
+
+    //目的端口号
+    String sPort;
+    /**
+     * 目的属性：其中range和eq只能出现其中一个
+     *
+     */
+    //目的IP地址【举例：单个ip为 10.250.143.31，网段为 10.250.143.31/28】
+    String dIp;
+    //目的子网掩码
+    String dNetmask;
+    //目的端口range关键字
+    String dRange;
+    //目的端口起始端口
+    String dStartPort;
+    //目的端口截止端口
+    String dDestPort;
+    //目的端口关键字
+    String dEq;
+    //目的端口号
+    String dPort;
 }

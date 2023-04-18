@@ -26,7 +26,7 @@ ipv4-access-list vty
   rule 30 permit ip 10.180.4.0 0.0.0.255 any
   rule 35 permit ip 12.10.18.0 0.0.0.255 any
   rule 40 permit ip 10.100.20.0 0.0.3.255 any
-   rule 45 permit ip 12.200.39.196 0.0.0.0 any
+  rule 45 permit ip 12.200.39.196 0.0.0.0 any
   rule 50 permit 10.100.2.48 0.0.0.15
   rule 200 deny ip any any
 $
@@ -49,7 +49,7 @@ ipv4-access-list 110
   rule 100 deny tcp any eq 5900 any
   rule 110 deny tcp any eq 6267 any
   rule 120 deny tcp any eq 7306 any
-   rule 130 deny tcp any eq 7626 any
+  rule 130 deny tcp any eq 7626 any
   rule 140 deny tcp any eq 8011 any
   rule 150 deny tcp any eq 8102 any
   rule 160 deny udp any eq 135 any
