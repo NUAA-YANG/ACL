@@ -10,18 +10,17 @@ import java.util.List;
  * @Java-version jdk1.8
  */
 //数据预处理
-public class PreTreatment {
+public class PreData {
     public static void main(String[] args) throws IOException {
-        PreTreatment treatment = new PreTreatment();
-        treatment.readText();
+        PreData treatment = new PreData();
     }
 
     //将文本文件中所有的和ACL相关的命令读取出来存入list集合中
-    public List<String> readText() throws IOException {
+    public List<String> readText(String pathName) throws IOException {
         //创建集合来存储读取的相关ACL语句
         List<String> listAcl = new ArrayList<>();
         //创建io流
-        FileInputStream fis = new FileInputStream("src/main/java/com/nuaa/text/0117.text");
+        FileInputStream fis = new FileInputStream(pathName);
         InputStreamReader isr = new InputStreamReader(fis);
         BufferedReader reader = new BufferedReader(isr);
         //line用来接受读取的每一行
@@ -29,9 +28,13 @@ public class PreTreatment {
         while ((line = reader.readLine())!=null){
             //找到全部的
             if (line.trim().startsWith("rule")){
-                System.out.println(line.trim());
+                listAcl.add(line.trim());
             }
         }
+        //关闭io流
+        fis.close();
+        isr.close();
+        reader.close();
         return listAcl;
     }
 
@@ -49,7 +52,7 @@ public class PreTreatment {
     }
 
 
-    //计算字符串中有多少个连续的1
+    //计算字符串中有多少个连续的1（用来判断子网掩码）
     public int calculateOne(String str){
         int one = 0 ;
         for (int i = 0 ;i<str.length();i++){

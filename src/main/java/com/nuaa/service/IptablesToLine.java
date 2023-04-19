@@ -2,27 +2,31 @@ package com.nuaa.service;
 
 import com.nuaa.pojo.Iptables;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @Author YZX
  * @Create 2023-04-18 10:59
  * @Java-version jdk1.8
  */
 //将iptables类转化为命令
-public class Transform {
+public class IptablesToLine {
     public static void main(String[] args) {
-        MatchPro matchPro = new MatchPro();
-        Iptables iptables1 = matchPro.turnAclToIptables("rule 10 permit ip 12.10.8.0 0.0.0.255 any");
-        Iptables iptables2 = matchPro.turnAclToIptables("rule 140 deny tcp any eq 8011 any");
-        Iptables iptables3 = matchPro.turnAclToIptables("rule 200 deny ip any any");
-        Iptables iptables4 = matchPro.turnAclToIptables("rule 200 deny any");
-        Transform transform = new Transform();
-        System.out.println(transform.turnToLine(iptables1));
-        System.out.println(transform.turnToLine(iptables2));
-        System.out.println(transform.turnToLine(iptables3));
-        System.out.println(transform.turnToLine(iptables4));
+        AclToIptables aclToIptables = new AclToIptables();
+        Iptables iptables1 = aclToIptables.turnAclToIptables("rule 10 permit ip 12.10.8.0 0.0.0.255 any");
+        Iptables iptables2 = aclToIptables.turnAclToIptables("rule 140 deny tcp any eq 8011 any");
+        Iptables iptables3 = aclToIptables.turnAclToIptables("rule 200 deny ip any any");
+        Iptables iptables4 = aclToIptables.turnAclToIptables("rule 200 deny any");
+        IptablesToLine iptablesToLine = new IptablesToLine();
+        System.out.println(iptablesToLine.turnToLine(iptables1));
+        System.out.println(iptablesToLine.turnToLine(iptables2));
+        System.out.println(iptablesToLine.turnToLine(iptables3));
+        System.out.println(iptablesToLine.turnToLine(iptables4));
 
     }
 
+    //将一个Iptables类转化为Iptables语句
     public String turnToLine(Iptables iptables){
         StringBuffer sb = new StringBuffer("iptables -t");
         //添加插入表【iptables -t filter】
@@ -121,4 +125,20 @@ public class Transform {
         }
         return new String(sb);
     }
+
+
+    //将Iptables类集合转化为Iptables语句集合，返回Iptables语句集合
+    public List<String> turnToLine(List<Iptables> iptablesList){
+        List<String> result = new ArrayList<>();
+        for (int i = 0; i < iptablesList.size(); i++) {
+            Iptables iptables = iptablesList.get(i);
+            //将每个类转化为语句
+            String line = turnToLine(iptables);
+            result.add(line);
+        }
+        return result;
+    }
+
+
+
 }

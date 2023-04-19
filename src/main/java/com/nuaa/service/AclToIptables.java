@@ -13,23 +13,20 @@ import java.util.regex.Pattern;
  * @Java-version jdk1.8
  */
 //匹配语句
-public class MatchPro {
+public class AclToIptables {
     public static void main(String[] args) {
-        MatchPro matchPro = new MatchPro();
+        AclToIptables aclToIptables = new AclToIptables();
         //System.out.println(matchPro.turnAclToIptables("rule 10 permit ip 12.10.8.0 0.0.0.255 any"));
-        System.out.println(matchPro.turnAclToIptables("rule 140 deny tcp any eq 8011 any"));
+        System.out.println(aclToIptables.turnAclToIptables("rule 140 deny tcp any eq 8011 any"));
         //System.out.println(matchPro.turnAclToIptables("rule 100 deny tcp any eq 5900 any"));
 
     }
 
-    //循环迭代，将所有的ACL语句转化为类，并且存储到数据库中
 
-
-
-    //将语句转化为 Iptables 类
+    //将单条ACL语句转化为 Iptables 类
     public Iptables turnAclToIptables(String line){
         Iptables iptables = new Iptables();
-        PreTreatment treatment = new PreTreatment();
+        PreData treatment = new PreData();
         String Regex = "rule\\s+\\d*\\s*(permit|deny)(?:\\s+(tcp|udp|icmp|ip))?" +
         "(?:\\s+((?:\\d{1,3}\\.){3}\\d{1,3}|\\w+))?" +
         "(?:\\s+((?:\\d{1,3}\\.){3}\\d{1,3}))?" +
@@ -86,5 +83,17 @@ public class MatchPro {
 
         return iptables;
 
+    }
+
+    //将ACL集合语句转化为 Iptables 类，返回转化的Iptables集合
+    public List<Iptables> turnAclToIptables(List<String> listAcl){
+        //用来返回结果
+        List<Iptables> iptablesList = new ArrayList<>();
+        //遍历ACL列表，将每个语句封装为Iptables对象并且存入集合
+        for (int i = 0; i < listAcl.size(); i++) {
+            Iptables iptables = turnAclToIptables(listAcl.get(i));
+            iptablesList.add(iptables);
+        }
+        return iptablesList;
     }
 }

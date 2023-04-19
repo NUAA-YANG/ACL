@@ -1,0 +1,43 @@
+iptables -t filter -I INPUT -m iprange -s 12.10.8.0/24 --dst-range 0.0.0.0-255.255.255.255 -j ACCEPT
+iptables -t filter -I INPUT -m iprange -s 10.56.4.0/24 --dst-range 0.0.0.0-255.255.255.255 -j ACCEPT
+iptables -t filter -I INPUT -m iprange -s 10.56.20.0/24 --dst-range 0.0.0.0-255.255.255.255 -j ACCEPT
+iptables -t filter -I INPUT -m iprange -s 12.200.39.194/32 --dst-range 0.0.0.0-255.255.255.255 -j ACCEPT
+iptables -t filter -I INPUT -m iprange -s 10.180.4.0/24 --dst-range 0.0.0.0-255.255.255.255 -j ACCEPT
+iptables -t filter -I INPUT -m iprange -s 12.10.18.0/24 --dst-range 0.0.0.0-255.255.255.255 -j ACCEPT
+iptables -t filter -I INPUT -m iprange -s 10.100.20.0/22 --dst-range 0.0.0.0-255.255.255.255 -j ACCEPT
+iptables -t filter -I INPUT -m iprange -s 12.200.39.196/32 --dst-range 0.0.0.0-255.255.255.255 -j ACCEPT
+iptables -t filter -I INPUT -s 10.100.2.48/28 -j ACCEPT
+iptables -t filter -I INPUT -m iprange --src-range 0.0.0.0-255.255.255.255 --dst-range 0.0.0.0-255.255.255.255 -j DROP
+iptables -t filter -I INPUT -s 12.10.8.200/32 -j ACCEPT
+iptables -t filter -I INPUT -s 12.10.8.2/32 -j ACCEPT
+iptables -t filter -I INPUT -s 12.200.39.194/32 -j ACCEPT
+iptables -t filter -I INPUT -m iprange --src-range 0.0.0.0-255.255.255.255 -j DROP
+iptables -t filter -I INPUT -m iprange --src-range 0.0.0.0-255.255.255.255 --dst-range 0.0.0.0-255.255.255.255 -p tcp --sport 135 -j DROP
+iptables -t filter -I INPUT -m iprange --src-range 0.0.0.0-255.255.255.255 --dst-range 0.0.0.0-255.255.255.255 -p tcp --sport 139 -j DROP
+iptables -t filter -I INPUT -m iprange --src-range 0.0.0.0-255.255.255.255 --dst-range 0.0.0.0-255.255.255.255 -p tcp --sport 445 -j DROP
+iptables -t filter -I INPUT -m iprange --src-range 0.0.0.0-255.255.255.255 --dst-range 0.0.0.0-255.255.255.255 -p tcp --sport 539 -j DROP
+iptables -t filter -I INPUT -m iprange --src-range 0.0.0.0-255.255.255.255 --dst-range 0.0.0.0-255.255.255.255 -p tcp --sport 593 -j DROP
+iptables -t filter -I INPUT -m iprange --src-range 0.0.0.0-255.255.255.255 --dst-range 0.0.0.0-255.255.255.255 -p tcp --sport 1521 -j DROP
+iptables -t filter -I INPUT -m iprange --src-range 0.0.0.0-255.255.255.255 --dst-range 0.0.0.0-255.255.255.255 -p tcp --sport 2000 -j DROP
+iptables -t filter -I INPUT -m iprange --src-range 0.0.0.0-255.255.255.255 --dst-range 0.0.0.0-255.255.255.255 -p tcp --sport 2001 -j DROP
+iptables -t filter -I INPUT -m iprange --src-range 0.0.0.0-255.255.255.255 --dst-range 0.0.0.0-255.255.255.255 -p tcp --sport 5800 -j DROP
+iptables -t filter -I INPUT -m iprange --src-range 0.0.0.0-255.255.255.255 --dst-range 0.0.0.0-255.255.255.255 -p tcp --sport 5900 -j DROP
+iptables -t filter -I INPUT -m iprange --src-range 0.0.0.0-255.255.255.255 --dst-range 0.0.0.0-255.255.255.255 -p tcp --sport 6267 -j DROP
+iptables -t filter -I INPUT -m iprange --src-range 0.0.0.0-255.255.255.255 --dst-range 0.0.0.0-255.255.255.255 -p tcp --sport 7306 -j DROP
+iptables -t filter -I INPUT -m iprange --src-range 0.0.0.0-255.255.255.255 --dst-range 0.0.0.0-255.255.255.255 -p tcp --sport 7626 -j DROP
+iptables -t filter -I INPUT -m iprange --src-range 0.0.0.0-255.255.255.255 --dst-range 0.0.0.0-255.255.255.255 -p tcp --sport 8011 -j DROP
+iptables -t filter -I INPUT -m iprange --src-range 0.0.0.0-255.255.255.255 --dst-range 0.0.0.0-255.255.255.255 -p tcp --sport 8102 -j DROP
+iptables -t filter -I INPUT -m iprange --src-range 0.0.0.0-255.255.255.255 --dst-range 0.0.0.0-255.255.255.255 -p udp --sport 135 -j DROP
+iptables -t filter -I INPUT -m iprange --src-range 0.0.0.0-255.255.255.255 --dst-range 0.0.0.0-255.255.255.255 -p udp --sport 137 -j DROP
+iptables -t filter -I INPUT -m iprange --src-range 0.0.0.0-255.255.255.255 --dst-range 0.0.0.0-255.255.255.255 -p udp --sport 138 -j DROP
+iptables -t filter -I INPUT -m iprange --src-range 0.0.0.0-255.255.255.255 --dst-range 0.0.0.0-255.255.255.255 -p udp --sport 445 -j DROP
+iptables -t filter -I INPUT -m iprange --src-range 0.0.0.0-255.255.255.255 --dst-range 0.0.0.0-255.255.255.255 -p udp --sport 1433 -j DROP
+iptables -t filter -I INPUT -m iprange --src-range 0.0.0.0-255.255.255.255 --dst-range 0.0.0.0-255.255.255.255 -p udp --sport 1434 -j DROP
+iptables -t filter -I INPUT -m iprange --src-range 0.0.0.0-255.255.255.255 --dst-range 0.0.0.0-255.255.255.255 -p udp --sport 6667 -j DROP
+iptables -t filter -I INPUT -m iprange --src-range 0.0.0.0-255.255.255.255 -j ACCEPT
+iptables -t filter -I INPUT -s 10.173.33.16/28 -j ACCEPT
+iptables -t filter -I INPUT -s 10.123.64.1/32 -j ACCEPT
+iptables -t filter -I INPUT -s 10.123.65.0/28 -j ACCEPT
+iptables -t filter -I INPUT -s 10.100.2.80/28 -j ACCEPT
+iptables -t filter -I INPUT -s 10.100.2.112/28 -j ACCEPT
+iptables -t filter -I INPUT -s 10.123.96.1/32 -j ACCEPT

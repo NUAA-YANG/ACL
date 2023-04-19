@@ -11,9 +11,14 @@ import java.sql.SQLException;
  */
 public class MysqlConnection {
 
+    public static void main(String[] args) {
+        MysqlConnection mysqlConnection = new MysqlConnection();
+        System.out.println(mysqlConnection.getConnection());
+    }
+
     //连接数据库
     public Connection getConnection(){
-        String url="jdbc:mysql://192.168.31.104:3306/DHCPPools?useUnicode=true&characterEncoding=utf8&serverTimezone=GMT%2B8&useSSL=false";
+        String url="jdbc:mysql://192.168.31.104:3306/ACL?useUnicode=true&characterEncoding=utf8&serverTimezone=GMT%2B8&useSSL=false";
         String user="root";
         String password="root";
         Connection conn = null;
