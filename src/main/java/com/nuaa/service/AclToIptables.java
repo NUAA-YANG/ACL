@@ -27,13 +27,21 @@ public class AclToIptables {
     public Iptables turnAclToIptables(String line){
         Iptables iptables = new Iptables();
         PreData treatment = new PreData();
+        //匹配行为和协议
         String Regex = "rule\\s+\\d*\\s*(permit|deny)(?:\\s+(tcp|udp|icmp|ip))?" +
+                //匹配源ip地址 或 “any” 关键字
         "(?:\\s+((?:\\d{1,3}\\.){3}\\d{1,3}|\\w+))?" +
+                //匹配源子网掩码
         "(?:\\s+((?:\\d{1,3}\\.){3}\\d{1,3}))?" +
+                //匹配源端口“range”关键字、起始端口和结束端口  或   端口“eq”关键字和端口值
         "(?:\\s+(range)\\s+(\\d+)-(\\d+)|\\s+(eq|ge|le)\\s+(\\d+))?" +
+                //匹配目的ip地址 或 “any” 关键字
         "(?:\\s+((?:\\d{1,3}\\.){3}\\d{1,3}|\\w+))?" +
+                //匹配目的子网掩码
         "(?:\\s+((?:\\d{1,3}\\.){3}\\d{1,3}))?" +
+                //匹配目的端口“range”关键字、起始端口和结束端口  或   端口“eq”关键字和端口值
         "(?:\\s+(range)\\s+(\\d+)-(\\d+)|\\s+(eq|ge|le)\\s+(\\d+))?" +
+                //匹配两个特殊关键字
         "(?:\\s+(established))?" +
         "(?:\\s+precedence\\s+\\d+)?";
 
