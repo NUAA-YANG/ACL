@@ -46,6 +46,8 @@ public class Iptables {
     String sDestPort;
     //目的端口关键字
     String sEq;
+    //目的端口号
+    String sPort;
 
     @Override
     public String toString() {
@@ -60,8 +62,7 @@ public class Iptables {
                 '}';
     }
 
-    //目的端口号
-    String sPort;
+
     /**
      * 目的属性：其中range和eq只能出现其中一个
      *

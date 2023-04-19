@@ -22,6 +22,10 @@ public class MatchPro {
 
     }
 
+    //循环迭代，将所有的ACL语句转化为类，并且存储到数据库中
+
+
+
     //将语句转化为 Iptables 类
     public Iptables turnAclToIptables(String line){
         Iptables iptables = new Iptables();
