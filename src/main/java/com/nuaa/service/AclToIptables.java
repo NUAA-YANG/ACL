@@ -16,9 +16,16 @@ import java.util.regex.Pattern;
 public class AclToIptables {
     public static void main(String[] args) {
         AclToIptables aclToIptables = new AclToIptables();
-        //System.out.println(matchPro.turnAclToIptables("rule 10 permit ip 12.10.8.0 0.0.0.255 any"));
-        System.out.println(aclToIptables.turnAclToIptables("rule 140 deny tcp any eq 8011 any"));
-        //System.out.println(matchPro.turnAclToIptables("rule 100 deny tcp any eq 5900 any"));
+
+        //中兴测试
+        System.out.println(aclToIptables.turnAclToIptables("rule 10 permit ip 192.168.86.2 0.0.0.255 any"));
+        System.out.println(aclToIptables.turnAclToIptables("rule 15 deny ip 192.168.88.2 0.0.0.255 any"));
+        System.out.println(aclToIptables.turnAclToIptables("rule 15 deny ip any 255.255.255.255 192.168.88.2 0.0.0.0"));
+
+
+        //华为测试
+//        System.out.println(aclToIptables.turnAclToIptables("rule 5 permit tcp destination-port eq 1433"));
+//        System.out.println(aclToIptables.turnAclToIptables("rule 15 permit ip source 11.10.40.0 0.0.0.255"));
 
     }
 
@@ -27,7 +34,9 @@ public class AclToIptables {
     public Iptables turnAclToIptables(String line){
         Iptables iptables = new Iptables();
         PreData treatment = new PreData();
-        //匹配行为和协议
+
+
+        //中兴匹配行为和协议
         String Regex = "rule\\s+\\d*\\s*(permit|deny)(?:\\s+(tcp|udp|icmp|ip))?" +
                 //匹配源ip地址 或 “any” 关键字
         "(?:\\s+((?:\\d{1,3}\\.){3}\\d{1,3}|\\w+))?" +
@@ -44,6 +53,17 @@ public class AclToIptables {
                 //匹配两个特殊关键字
         "(?:\\s+(established))?" +
         "(?:\\s+precedence\\s+\\d+)?";
+
+        //华为匹配协议
+//        String Regex = "rule\\s+\\d*\\s*(permit|deny)(?:\\s+(tcp|udp|icmp|ip))?" +//permit group(1) protocol group(2)
+//                "(?:\\s+source\\s((?:\\d{1,3}\\.){3}\\d{1,3}|any))?" +// src group(3)
+//                "(?:\\s+((?:\\d{1,3}\\.){3}\\d{1,3}))?" +// src_mask group(4)
+//                "(?:\\s+destination\\s((?:\\d{1,3}\\.){3}\\d{1,3}|any))?" +// des group(5)
+//                "(?:\\s+((?:\\d{1,3}\\.){3}\\d{1,3}))?" +//des_mask group(6)
+//                "(?:\\s+(range)\\s+(\\d+)\\s(\\d+)|\\s+source-port\\s+(eq|ge|le)\\s(\\d+))?" +//sport_range group(7) start group(8) end group(9)  sport group(10) portNum group(11)
+//                "(?:\\s+(range)\\s+(\\d+)\\s(\\d+)|\\s+destination-port\\s+(eq|ge|le)\\s(\\d+))?" +//dport_range group(12) start group(13) end group(14)  dport group(15) portNum group(16)
+//                "(?:\\s+(established))?" +//tcp group(17)
+//                "(?:\\s+precedence\\s+\\d+)?";
 
         Pattern pattern = Pattern.compile(Regex);
         Matcher matcher = pattern.matcher(line);

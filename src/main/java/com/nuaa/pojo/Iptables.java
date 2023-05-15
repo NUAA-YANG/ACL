@@ -49,20 +49,6 @@ public class Iptables {
     //目的端口号
     String sPort;
 
-//    @Override
-//    public String toString() {
-//        return "Iptables{" +
-//                "id=" + id + ", table='" + table + '\'' + ", rule='" + rule + '\'' +'\n'+
-//                ", chain='" + chain + '\'' + ", judge='" + judge + '\'' + ", protocol='" + protocol + '\'' +'\n'+
-//                ", sIp='" + sIp + '\'' + ", sNetmask='" + sNetmask + '\'' + ", sRange='" + sRange + '\'' +'\n'+
-//                ", sStartPort='" + sStartPort + '\'' + ", sDestPort='" + sDestPort + '\'' + ", sEq='" + sEq + '\'' +'\n'+
-//                ", sPort='" + sPort + '\'' + ", dIp='" + dIp + '\'' + ", dNetmask='" + dNetmask + '\'' +'\n'+
-//                ", dRange='" + dRange + '\'' + ", dStartPort='" + dStartPort + '\'' + ", dDestPort='" + dDestPort + '\'' +'\n'+
-//                ", dEq='" + dEq + '\'' + ", dPort='" + dPort + '\'' +
-//                '}';
-//    }
-
-
     /**
      * 目的属性：其中range和eq只能出现其中一个
      *

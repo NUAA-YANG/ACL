@@ -14,10 +14,10 @@ import java.util.List;
 public class IptablesToLine {
     public static void main(String[] args) {
         AclToIptables aclToIptables = new AclToIptables();
-        Iptables iptables1 = aclToIptables.turnAclToIptables("rule 10 permit ip 12.10.8.0 0.0.0.255 any");
-        Iptables iptables2 = aclToIptables.turnAclToIptables("rule 140 deny tcp any eq 8011 any");
-        Iptables iptables3 = aclToIptables.turnAclToIptables("rule 200 deny ip any any");
-        Iptables iptables4 = aclToIptables.turnAclToIptables("rule 200 deny any");
+        Iptables iptables1 = aclToIptables.turnAclToIptables("rule 10 permit ip 192.168.86.2 0.0.0.255 any");
+        Iptables iptables2 = aclToIptables.turnAclToIptables("rule 15 deny ip 192.168.88.2 0.0.0.255 any");
+        Iptables iptables3 = aclToIptables.turnAclToIptables("rule 10 deny ip 192.168.80.1 0.0.0.0 any");
+        Iptables iptables4 = aclToIptables.turnAclToIptables("rule 15 deny ip any 255.255.255.255 192.168.88.2 0.0.0.0");
         IptablesToLine iptablesToLine = new IptablesToLine();
         System.out.println(iptablesToLine.turnToLine(iptables1));
         System.out.println(iptablesToLine.turnToLine(iptables2));
@@ -63,10 +63,10 @@ public class IptablesToLine {
                 // ip为数字，掩码不为空，指定网段
                 if (iptables.getDNetmask()!=null){
                     //给了指定的范围，添加源地址和子网掩码
-                    sb.append(" -s "+iptables.getDIp()+"/"+iptables.getDNetmask());
+                    sb.append(" -d "+iptables.getDIp()+"/"+iptables.getDNetmask());
                 }else {
                     // ip为数字，掩码为空，指定单个ip
-                    sb.append(" -s "+iptables.getDIp());
+                    sb.append(" -d "+iptables.getDIp());
                 }
             }else {
                 //允许所有目的ip，直接进行添加
@@ -138,7 +138,5 @@ public class IptablesToLine {
         }
         return result;
     }
-
-
 
 }

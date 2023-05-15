@@ -1,0 +1,66 @@
+#
+dot1x-template 1
+#
+acl number 3001
+ rule 5 permit tcp destination-port eq 1433
+ rule 10 permit udp destination-port eq 1433
+ rule 15 permit ip source 11.10.40.0 0.0.0.255
+ rule 20 permit ip source 11.11.24.0 0.0.0.255
+ rule 25 deny tcp destination-port eq 139
+ rule 30 deny tcp destination-port eq 135
+ rule 35 deny tcp destination-port eq 445
+ rule 40 deny tcp destination-port eq 539
+ rule 45 deny tcp destination-port eq 593
+ rule 50 deny tcp destination-port eq 1521
+ rule 55 deny tcp destination-port eq 2000
+ rule 60 deny tcp destination-port eq 2001
+ rule 65 deny tcp destination-port eq 5800
+ rule 70 deny tcp destination-port eq 5900
+ rule 75 deny tcp destination-port eq 6267
+ rule 80 deny tcp destination-port eq 7306
+ rule 85 deny tcp destination-port eq 7626
+ rule 90 deny tcp destination-port eq 8011
+ rule 95 deny tcp destination-port eq 8102
+ rule 100 deny udp destination-port eq 135
+ rule 105 deny udp destination-port eq netbios-ns
+ rule 110 deny udp destination-port eq netbios-dgm
+ rule 115 deny udp destination-port eq 445
+ rule 120 deny udp destination-port eq 1433
+ rule 125 deny udp destination-port eq 1434
+ rule 130 deny udp destination-port eq 6667
+ #
+security password
+ #
+ rule admin
+  forbidden word changeme_123
+#
+license
+#
+isis 11
+ is-level level-2
+ cost-style wide
+ bfd all-interfaces enable
+ bfd all-interfaces min-tx-interval 1000 min-rx-interval 1000
+ network-entity 10.7307.0541.4506.4001.00
+ is-name aaaa
+ preference 20
+#
+interface Virtual-Template0
+ ppp authentication-mode auto
+#
+interface GigabitEthernet0/0/0
+ speed auto
+ duplex auto
+ undo shutdown
+#
+interface GigabitEthernet1/0/0
+ negotiation auto
+ description acd.M6000-8S-GEI-0/5/1/2-1000M
+ undo shutdown
+ ip address 10.103.2.110 255.255.255.240
+ isis enable 11
+ isis circuit-type p2p
+ isis cost 4000
+ mpls
+ mpls ldp
+ undo dcn

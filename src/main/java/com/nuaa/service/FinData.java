@@ -32,7 +32,7 @@ public class FinData {
     }
 
 
-    //随机生成一个文件名称
+    //按照当前时间生成一个文件名称
     public String getTextName(){
         //格式化当前时间
         SimpleDateFormat formatter= new SimpleDateFormat("yyyyMMdd_HHmmss");
